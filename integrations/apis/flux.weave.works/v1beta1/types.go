@@ -1,7 +1,8 @@
-package v1alpha2
+package v1beta1
 
 import (
 	"github.com/ghodss/yaml"
+	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/helm/pkg/chartutil"
 )
@@ -19,10 +20,35 @@ type FluxHelmRelease struct {
 	Status FluxHelmReleaseStatus `json:"status"`
 }
 
+type ChartSource struct {
+	// one of the following...
+	// +optional
+	GitChart *GitChartSource `json:"git,omitempty"`
+	// +optional
+	RepoChart *RepoChartSource `json:"helmRepo,omitempty"`
+}
+
+type GitChartSource struct {
+	// URL would go here, and possibly SSH key secret; but, not yet.
+
+	// Path to the chart.
+	Path string `json:"path"`
+}
+
+type RepoChartSource struct {
+	RepoURL string `json:"url"`
+	Name    string
+	Version string
+	// An authentication secret for accessing the chart repo
+	// +optional
+	ChartPullSecret *v1.LocalObjectReference
+}
+
 // FluxHelmReleaseSpec is the spec for a FluxHelmRelease resource
 // FluxHelmReleaseSpec
 type FluxHelmReleaseSpec struct {
-	ChartGitPath   string `json:"chartGitPath"`
+	ChartSource `json:"chart`
+
 	ReleaseName    string `json:"releaseName,omitempty"`
 	FluxHelmValues `json:",inline"`
 }

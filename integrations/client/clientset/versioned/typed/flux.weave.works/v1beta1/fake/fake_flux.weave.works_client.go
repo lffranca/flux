@@ -16,22 +16,22 @@ limitations under the License.
 package fake
 
 import (
-	v1alpha2 "github.com/weaveworks/flux/integrations/client/clientset/versioned/typed/helm.integrations.flux.weave.works/v1alpha2"
+	v1beta1 "github.com/weaveworks/flux/integrations/client/clientset/versioned/typed/flux.weave.works/v1beta1"
 	rest "k8s.io/client-go/rest"
 	testing "k8s.io/client-go/testing"
 )
 
-type FakeHelmV1alpha2 struct {
+type FakeFluxV1beta1 struct {
 	*testing.Fake
 }
 
-func (c *FakeHelmV1alpha2) FluxHelmReleases(namespace string) v1alpha2.FluxHelmReleaseInterface {
+func (c *FakeFluxV1beta1) FluxHelmReleases(namespace string) v1beta1.FluxHelmReleaseInterface {
 	return &FakeFluxHelmReleases{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
-func (c *FakeHelmV1alpha2) RESTClient() rest.Interface {
+func (c *FakeFluxV1beta1) RESTClient() rest.Interface {
 	var ret *rest.RESTClient
 	return ret
 }

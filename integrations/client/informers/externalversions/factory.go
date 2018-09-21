@@ -17,7 +17,7 @@ package externalversions
 
 import (
 	versioned "github.com/weaveworks/flux/integrations/client/clientset/versioned"
-	helm_integrations_flux_weave_works "github.com/weaveworks/flux/integrations/client/informers/externalversions/helm.integrations.flux.weave.works"
+	flux_weave_works "github.com/weaveworks/flux/integrations/client/informers/externalversions/flux.weave.works"
 	internalinterfaces "github.com/weaveworks/flux/integrations/client/informers/externalversions/internalinterfaces"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
@@ -168,9 +168,9 @@ type SharedInformerFactory interface {
 	ForResource(resource schema.GroupVersionResource) (GenericInformer, error)
 	WaitForCacheSync(stopCh <-chan struct{}) map[reflect.Type]bool
 
-	Helm() helm_integrations_flux_weave_works.Interface
+	Flux() flux_weave_works.Interface
 }
 
-func (f *sharedInformerFactory) Helm() helm_integrations_flux_weave_works.Interface {
-	return helm_integrations_flux_weave_works.New(f, f.namespace, f.tweakListOptions)
+func (f *sharedInformerFactory) Flux() flux_weave_works.Interface {
+	return flux_weave_works.New(f, f.namespace, f.tweakListOptions)
 }
