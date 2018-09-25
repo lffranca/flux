@@ -17,9 +17,6 @@ spec:
     - name: v1beta1
       served: true
       storage: true
-    - name: v1alpha2
-      served: true
-      storage: false
   validation:
     openAPIV3Schema:
       properties:
@@ -33,18 +30,16 @@ spec:
               type: object
             chart:
               oneOf:
-              - type: object
+              - required: ['git']
                 properties:
                   git:
-                    type: object
                     required: ['path']
                     properties:
                       path:
                         type: string
-              - type: object
+              - required: ['repo']
                 properties:
                   repo:
-                    type: object
                     required: ['url', 'name', 'version']
                     properties:
                       url:
@@ -55,3 +50,7 @@ spec:
                       version:
                         type: string
                         format: semver # not defined by OAS
+                      chartPullSecret:
+                        properties:
+                          name:
+                            type: string

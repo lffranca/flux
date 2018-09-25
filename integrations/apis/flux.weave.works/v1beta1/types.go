@@ -25,7 +25,7 @@ type ChartSource struct {
 	// +optional
 	GitChart *GitChartSource `json:"git,omitempty"`
 	// +optional
-	RepoChart *RepoChartSource `json:"helmRepo,omitempty"`
+	RepoChart *RepoChartSource `json:"repo,omitempty"`
 }
 
 type GitChartSource struct {
@@ -37,17 +37,17 @@ type GitChartSource struct {
 
 type RepoChartSource struct {
 	RepoURL string `json:"url"`
-	Name    string
-	Version string
+	Name    string `json:"name"`
+	Version string `json:"version"`
 	// An authentication secret for accessing the chart repo
 	// +optional
-	ChartPullSecret *v1.LocalObjectReference
+	ChartPullSecret *v1.LocalObjectReference `json:"chartPullSecret,omitempty"`
 }
 
 // FluxHelmReleaseSpec is the spec for a FluxHelmRelease resource
 // FluxHelmReleaseSpec
 type FluxHelmReleaseSpec struct {
-	ChartSource `json:"chart`
+	ChartSource `json:"chart"`
 
 	ReleaseName    string `json:"releaseName,omitempty"`
 	FluxHelmValues `json:",inline"`
