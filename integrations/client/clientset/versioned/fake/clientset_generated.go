@@ -19,6 +19,8 @@ import (
 	clientset "github.com/weaveworks/flux/integrations/client/clientset/versioned"
 	fluxv1beta1 "github.com/weaveworks/flux/integrations/client/clientset/versioned/typed/flux.weave.works/v1beta1"
 	fakefluxv1beta1 "github.com/weaveworks/flux/integrations/client/clientset/versioned/typed/flux.weave.works/v1beta1/fake"
+	helmv1alpha2 "github.com/weaveworks/flux/integrations/client/clientset/versioned/typed/helm.integrations.flux.weave.works/v1alpha2"
+	fakehelmv1alpha2 "github.com/weaveworks/flux/integrations/client/clientset/versioned/typed/helm.integrations.flux.weave.works/v1alpha2/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
@@ -76,4 +78,14 @@ func (c *Clientset) FluxV1beta1() fluxv1beta1.FluxV1beta1Interface {
 // Flux retrieves the FluxV1beta1Client
 func (c *Clientset) Flux() fluxv1beta1.FluxV1beta1Interface {
 	return &fakefluxv1beta1.FakeFluxV1beta1{Fake: &c.Fake}
+}
+
+// HelmV1alpha2 retrieves the HelmV1alpha2Client
+func (c *Clientset) HelmV1alpha2() helmv1alpha2.HelmV1alpha2Interface {
+	return &fakehelmv1alpha2.FakeHelmV1alpha2{Fake: &c.Fake}
+}
+
+// Helm retrieves the HelmV1alpha2Client
+func (c *Clientset) Helm() helmv1alpha2.HelmV1alpha2Interface {
+	return &fakehelmv1alpha2.FakeHelmV1alpha2{Fake: &c.Fake}
 }
